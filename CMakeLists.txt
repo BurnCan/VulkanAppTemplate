@@ -16,19 +16,21 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glfw)
 
-# GLM
+# GLM (header-only, no need to build)
 FetchContent_Declare(
   glm
   GIT_REPOSITORY https://github.com/g-truc/glm.git
   GIT_TAG 0.9.9.8
 )
-FetchContent_MakeAvailable(glm)
+FetchContent_Populate(glm)
+add_library(glm INTERFACE)
+target_include_directories(glm INTERFACE ${glm_SOURCE_DIR})
 
 # ImGui
 FetchContent_Declare(
   imgui
   GIT_REPOSITORY https://github.com/ocornut/imgui.git
-  GIT_TAG docking  # use "master" if you don't want docking support
+  GIT_TAG docking
 )
 FetchContent_MakeAvailable(imgui)
 
@@ -45,10 +47,22 @@ add_executable(VulkanApp ${SRC_FILES})
 target_include_directories(VulkanApp PRIVATE
     include
     ${imgui_SOURCE_DIR}
-    ${glm_SOURCE_DIR}
+    ${imgui_SOURCE_DIR}/backends
+)
+
+# ImGui source files
+target_sources(VulkanApp PRIVATE
+    ${imgui_SOURCE_DIR}/imgui.cpp
+    ${imgui_SOURCE_DIR}/imgui_demo.cpp
+    ${imgui_SOURCE_DIR}/imgui_draw.cpp
+    ${imgui_SOURCE_DIR}/imgui_tables.cpp
+    ${imgui_SOURCE_DIR}/imgui_widgets.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
+    ${imgui_SOURCE_DIR}/backends/imgui_impl_vulkan.cpp
 )
 
 target_link_libraries(VulkanApp PRIVATE
     glfw
     Vulkan::Vulkan
+    glm
 )
