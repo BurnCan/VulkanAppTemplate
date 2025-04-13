@@ -101,18 +101,66 @@ Ensure you have the following software installed depending on your operating sys
 
 ---
 
-### macOS
+🍎 macOS
 
-1. **Install Dependencies**:
-   ```bash
-   brew install cmake git ninja
-   ```
+📦 Install Dependencies:
 
-2. **Build Project**:
-   ```bash
-   cmake -B build -G "Unix Makefiles"
-   cmake --build build --config Release
-   ```
+Install Homebrew if not already installed
+
+Run:
+
+brew install cmake git
+
+Download and install Vulkan SDK
+
+🛠 Set up Environment Variables:
+
+Open Terminal and run:
+
+export VULKAN_SDK=$HOME/VulkanSDK/1.4.309.0/macOS
+export DYLD_LIBRARY_PATH=$VULKAN_SDK/lib:$DYLD_LIBRARY_PATH
+export PATH=$VULKAN_SDK/bin:$PATH
+
+🧠 To make these permanent:
+
+👉 If using Zsh (macOS default):
+
+touch ~/.zshrc
+open -a TextEdit ~/.zshrc
+
+👉 If using Bash:
+
+touch ~/.bash_profile
+open -a TextEdit ~/.bash_profile
+
+Then add this to the opened file:
+
+export VULKAN_SDK=$HOME/VulkanSDK/1.4.309.0/macOS
+export DYLD_LIBRARY_PATH=$VULKAN_SDK/lib:$DYLD_LIBRARY_PATH
+export PATH=$VULKAN_SDK/bin:$PATH
+
+Save, close, and apply changes:
+
+source ~/.zshrc   # or ~/.bash_profile
+
+▶️ Build Steps:
+
+cd VulkanAppTemplate
+cmake -B build -G Ninja
+cmake --build build --config Release
+./build/VulkanApp
+
+✅ VSCode (macOS)
+
+Install VSCode and required extensions:
+
+CMake Tools
+
+C++
+
+Open the project folder
+
+Use status bar or Command Palette to configure and build
 
 ---
 
