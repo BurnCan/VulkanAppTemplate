@@ -1,0 +1,23 @@
+# Set the default behavior to automatically normalize line endings
+* text=auto
+
+# Explicitly declare text files we want to always normalize
+*.cpp text
+*.hpp text
+*.c text
+*.h text
+*.txt text
+*.md text
+*.py text eol=lf
+
+# Binary files should be left untouched
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.bmp binary
+*.gif binary
+*.ico binary
+*.pdf binary
+
+# Prevent submodules from being treated as embedded repos
+build/_deps/** export-ignore
